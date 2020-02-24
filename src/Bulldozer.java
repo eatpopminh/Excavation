@@ -10,16 +10,21 @@ public class Bulldozer {
 	public int y;
 	public int matrixSize = 0;
 	public int[][] matrix;
+	//public Set<Vector2D> set;
 	Bulldozer(int matrixSize, int[][] myMatrix)
 	{
-		x = 1;
-		y = 1;
+		x = 0;
+		y = 0;
 		this.matrixSize = matrixSize;
 		matrix = myMatrix;
 	}
 	public void incX()
 	{
 		x++;
+	}
+	public void zeroX()
+	{
+		x=0;
 	}
 	public void incY()
 	{
@@ -42,7 +47,7 @@ public class Bulldozer {
 			}
 		}
 		money = addingFromSet(mySet);
-		
+		//set=mySet;
 		return money;
 	}
 	public void findAllPoints(int currentI, int currentJ,Set<Vector2D> mySet)
