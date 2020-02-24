@@ -6,14 +6,13 @@ import java.util.TreeSet;
 
 public class Bulldozer {
 
-	
 	public int x;
 	public int y;
 	public int matrixSize = 0;
 	public int[][] matrix;
 	Bulldozer(int matrixSize, int[][] myMatrix)
 	{
-		x = 2;
+		x = 1;
 		y = 1;
 		this.matrixSize = matrixSize;
 		matrix = myMatrix;
@@ -30,7 +29,7 @@ public class Bulldozer {
 	{
 		int money = 0;
 		Set<Vector2D> mySet = new HashSet<Vector2D>();
-
+		
 		findAllPoints(currentI, currentJ,mySet);
 		
 		System.out.println(mySet);

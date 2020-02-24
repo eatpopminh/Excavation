@@ -8,7 +8,7 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		List<String> lines = Files.readAllLines(Paths.get("C:\\Users\\Mindy\\Documents\\GitHub\\Excavation\\src\\input.txt"));
+		List<String> lines = Files.readAllLines(Paths.get("C:\\Users\\Minh\\Documents\\GitHub\\Excavation\\src\\input.txt"));
 		int num = Integer.parseInt(lines.get(0));
 		
 		int biggestDollar = 0;
@@ -18,23 +18,23 @@ public class Main {
 		textFileToMatrix(lines, matrix);
 		
 		Bulldozer BD = new Bulldozer(num,matrix);
-//		for(int i = 0;i<num;i++)
-//		{
-//			for(int j = 0;j<num;j++)
-//			{
-//				if((i+BD.x)>num || (j+BD.y)>num)
-//				{
-//					break;
-//				}
-//				if(BD.calculateMoneyOfMatrix(i, j, matrix)>biggestDollar)
-//				{
-//					biggestDollar = BD.calculateMoneyOfMatrix(i, j, matrix);
-//				}
-//				
-//			}
-//		}
-		BD.calculateMoneyOfMatrix(2, 0, matrix);
-		//System.out.println("Money: " + biggestDollar);
+		for(int i = 0;i<num-1;i++)
+		{
+			for(int j = 0;j<num-1;j++)
+			{
+				if((i+BD.x)>num || (j+BD.y)>num)
+				{
+					break;
+				}
+				if(BD.calculateMoneyOfMatrix(i, j, matrix)>biggestDollar)
+				{
+					biggestDollar = BD.calculateMoneyOfMatrix(i, j, matrix);
+				}
+				
+			}
+		}
+		//BD.calculateMoneyOfMatrix(2, 0, matrix);
+		System.out.println("Money: " + biggestDollar);
 
 		printMatrix(matrix);
 		
