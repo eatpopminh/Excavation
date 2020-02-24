@@ -11,31 +11,31 @@ public class Main {
 		List<String> lines = Files.readAllLines(Paths.get("C:\\Users\\Mindy\\Documents\\GitHub\\Excavation\\src\\input.txt"));
 		int num = Integer.parseInt(lines.get(0));
 		
+		int biggestDollar = 0;
+		
 		int[][] matrix = new int[num][num];
 		
 		textFileToMatrix(lines, matrix);
-//		String temp = "";
-//		int h = 0;
-//		int k = 0;
-//		for(int j = 1;j<lines.size();j++)
-//		{
-//			for(int i = 0;i<lines.get(j).length();i++)
-//			{
-//				if(lines.get(j).toCharArray()[i]==' ')
-//				{
-//					matrix[h][k] = Integer.parseInt(temp.trim());
-//					k++;
-//					temp = "";	
-//				}
-//				else
-//				{
-//					temp += lines.get(j).toCharArray()[i];
-//				}
-//			}
-//			k=0;
-//			h++;
-//		}
 		
+		Bulldozer BD = new Bulldozer(num,matrix);
+//		for(int i = 0;i<num;i++)
+//		{
+//			for(int j = 0;j<num;j++)
+//			{
+//				if((i+BD.x)>num || (j+BD.y)>num)
+//				{
+//					break;
+//				}
+//				if(BD.calculateMoneyOfMatrix(i, j, matrix)>biggestDollar)
+//				{
+//					biggestDollar = BD.calculateMoneyOfMatrix(i, j, matrix);
+//				}
+//				
+//			}
+//		}
+		BD.calculateMoneyOfMatrix(2, 0, matrix);
+		//System.out.println("Money: " + biggestDollar);
+
 		printMatrix(matrix);
 		
 		
