@@ -1,3 +1,4 @@
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -9,7 +10,7 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		List<String> lines = Files.readAllLines(Paths.get("C:\\Users\\Minh\\Documents\\GitHub\\Excavation\\src\\input.txt"));
+		List<String> lines = Files.readAllLines(Paths.get("C:\\Users\\Mindy\\Documents\\GitHub\\Excavation\\src\\input.txt"));
 		int num = Integer.parseInt(lines.get(0));
 		int num2 = num*num;
 		int biggestDollar = 0;
@@ -22,37 +23,47 @@ public class Main {
 		textFileToMatrix(lines, matrix);
 		
 		Bulldozer BD = new Bulldozer(num,matrix);
-for(int t = 0;t<num2;t++)
-{
-	for(int th = 0;th<num2;th++)
-	{
-		for(int i = 0;i<num-1;i++)
+		for(int t = 0;t<num2;t++)
 		{
-			for(int j = 0;j<num-1;j++)
+			for(int th = 0;th<num2;th++)
 			{
-				if((i+BD.x)>num || (j+BD.y)>num)
+				for(int i = 0;i<num-1;i++)
 				{
-					break;
+					for(int j = 0;j<num-1;j++)
+					{
+						if((i+BD.x)>num || (j+BD.y)>num)
+						{
+							break;
+						}
+						if(BD.calculateMoneyOfMatrix(i, j, matrix)>biggestDollar)
+						{
+							biggestDollar = BD.calculateMoneyOfMatrix(i, j, matrix);
+							biggestX = BD.x;
+							biggestY = BD.y;
+							
+						}
+					}
 				}
-				if(BD.calculateMoneyOfMatrix(i, j, matrix)>biggestDollar)
-				{
-					biggestDollar = BD.calculateMoneyOfMatrix(i, j, matrix);
-					biggestX = BD.x;
-					biggestY = BD.y;
-					
-				}
+				BD.incX();
 			}
+			BD.zeroX();
+			BD.incY();
 		}
-		BD.incX();
-	}
-	BD.zeroX();
-	BD.incY();
-}
 
 		//BD.calculateMoneyOfMatrix(2, 0, matrix);
+		System.out.println("MONEY MONEY MONEY");
 		System.out.println("Money: " + biggestDollar);
 		System.out.println(biggestX + " and "+ biggestY);
 		printMatrix(matrix);
+		
+		FileWriter write = new FileWriter("output.txt");
+		write.write("1 1\n");
+		write.write(biggestX+" "+biggestY);
+		
+		
+		
+		write.close();
+
 		
 		
 	}
