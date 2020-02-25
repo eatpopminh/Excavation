@@ -37,7 +37,7 @@ public class Bulldozer {
 		
 		findAllPoints(currentI, currentJ,mySet);
 		
-		System.out.println(mySet);
+		//System.out.println(mySet);
 		for(Vector2D v : mySet)
 		{
 			Vector2D temp = new Vector2D(matrixSize,matrixSize);
@@ -80,9 +80,9 @@ public class Bulldozer {
 		for(Vector2D a : s)
 		{
 			money += matrix[a.x][a.y];
-			System.out.println(matrix[a.x][a.y]);
+			//System.out.println(matrix[a.x][a.y]);
 		}
-		System.out.println("Money: " + money);
+		//System.out.println("Money: " + money);
 		return money;
 	}
 	

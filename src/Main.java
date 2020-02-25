@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,7 +11,8 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		List<String> lines = Files.readAllLines(Paths.get("C:\\Users\\Mindy\\Documents\\GitHub\\Excavation\\src\\input.txt"));
+		File f = new File("input.txt");
+		List<String> lines = Files.readAllLines(Paths.get("input.txt"));
 		int num = Integer.parseInt(lines.get(0));
 		int num2 = num*num;
 		int biggestDollar = 0;
@@ -60,12 +62,8 @@ public class Main {
 		write.write("1 1\n");
 		write.write(biggestX+" "+biggestY);
 		
-		
-		
 		write.close();
 
-		
-		
 	}
 	public static void printMatrix(int matrix[][])
 	{
