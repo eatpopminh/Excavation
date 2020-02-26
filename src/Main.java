@@ -61,11 +61,14 @@ public class Main {
 		System.out.println("Money: " + biggestDollar);
 		System.out.println("Orgin: "+orginX + " and "+ orginY);
 		System.out.println("Size: "+biggestX + " and "+ biggestY);
+		
+		System.out.println(orginX + " " + orginY);
+		System.out.println((orginX+biggestX-1) + " "+ (biggestY+orginY-1));
 		printMatrix(matrix);
 		
 		FileWriter write = new FileWriter("output.txt");
 		write.write(orginX+" "+orginY+"\n");
-		write.write(biggestX+" "+biggestY);
+		write.write((orginX+biggestX-1) + " "+ (biggestY+orginY-1));
 		
 		write.close();
 
