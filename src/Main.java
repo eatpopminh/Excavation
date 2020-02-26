@@ -18,6 +18,8 @@ public class Main {
 		int biggestDollar = 0;
 		int biggestX = 0;
 		int biggestY = 0;
+		int orginX = 0;
+		int orginY = 0;
 		//Set<Vector2D> biggestSet;
 		
 		int[][] matrix = new int[num][num];
@@ -41,6 +43,8 @@ public class Main {
 						{
 							biggestDollar = BD.calculateMoneyOfMatrix(i, j, matrix);
 							biggestX = BD.x;
+							orginX = i+1;
+							orginY = j+1;
 							biggestY = BD.y;
 							
 						}
@@ -55,11 +59,12 @@ public class Main {
 		//BD.calculateMoneyOfMatrix(2, 0, matrix);
 		System.out.println("MONEY MONEY MONEY");
 		System.out.println("Money: " + biggestDollar);
-		System.out.println(biggestX + " and "+ biggestY);
+		System.out.println("Orgin: "+orginX + " and "+ orginY);
+		System.out.println("Size: "+biggestX + " and "+ biggestY);
 		printMatrix(matrix);
 		
 		FileWriter write = new FileWriter("output.txt");
-		write.write("1 1\n");
+		write.write(orginX+" "+orginY+"\n");
 		write.write(biggestX+" "+biggestY);
 		
 		write.close();
