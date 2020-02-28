@@ -58,12 +58,12 @@ public class Main {
 
 		//BD.calculateMoneyOfMatrix(2, 0, matrix);
 		System.out.println("MONEY MONEY MONEY");
-		System.out.println("Money: " + biggestDollar);
-		System.out.println("Orgin: "+orginX + " and "+ orginY);
-		System.out.println("Size: "+biggestX + " and "+ biggestY);
+		System.out.println("Max money: " + biggestDollar);
+		System.out.println("Orgin of Bulldozer: "+orginX + " and "+ orginY);
+		System.out.println("Size of Bulldozer: "+biggestX + " and "+ biggestY);
 		
-		System.out.println(orginX + " " + orginY);
-		System.out.println((orginX+biggestX-1) + " "+ (biggestY+orginY-1));
+		System.out.println("Point on matrix: "+orginX + " " + orginY);
+		System.out.println("Point on matrix: "+(orginX+biggestX-1) + " "+ (biggestY+orginY-1));
 		printMatrix(matrix);
 		
 		FileWriter write = new FileWriter("output.txt");
