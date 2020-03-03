@@ -26,6 +26,8 @@ public class Main {
 		
 		textFileToMatrix(lines, matrix);
 		
+		//Done without Dynamic Programming.
+		//I think this can be done with Dynamic Programming.
 		Bulldozer BD = new Bulldozer(num,matrix);
 		for(int t = 0;t<num2;t++)
 		{
