@@ -12,8 +12,8 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		//withOutDP();
-		withDP();
+		withOutDP();
+		//withDP();
 	}
 	public static void withDP() throws IOException
 	{
@@ -27,12 +27,12 @@ public class Main {
 		Vector2D biggestCornerV = null;
 		Vector2D biggestCornerV2 = null;
 		int[][] calculatedMatrix = new int[num+1][num+1]; 
+		
 		//calulatedMatrix( (2,3) + (3,1) - (2,1) ) + point(3,2) = calculated[3,2] = MONEY
 		int p = 1;
 		int o = 1;
 		for(int h=0;h<=num2;h++)
 		{
-			
 			for(int i = p ; i<=num ; i++)
 			{
 				for(int j = o ; j<=num ; j++)
@@ -61,12 +61,10 @@ public class Main {
 			
 		}
 		
-		//printMatrix(calculatedMatrix);
 		System.out.println("MAX MONEY: "+biggestDoll);
 		System.out.println(biggestCornerV.toString());
 		System.out.println(biggestCornerV2.toString());
-		//printMatrix(matrix);
-		//withOutDP();
+		
 		
 	}
 	public static void clearMatrix(int[][] matrix,int num)
@@ -97,7 +95,7 @@ public class Main {
 		textFileToMatrix(lines, matrix);
 		
 		//Done without Dynamic Programming.
-		Bulldozer BD = new Bulldozer(num+10,matrix);
+		Bulldozer BD = new Bulldozer(num,matrix);
 		
 		for(int t = 0;t<num2+10;t++)
 		{
@@ -107,7 +105,7 @@ public class Main {
 				{
 					for(int j = 0;j<num+10;j++)
 					{
-						if((i+BD.x)>num || (j+BD.y)>num)
+						if((i+BD.x)>num+1 || (j+BD.y)>num+1)
 						{
 							break;
 						}
@@ -115,8 +113,8 @@ public class Main {
 						{
 							biggestDollar = BD.calculateMoneyOfMatrix(i, j, matrix);
 							biggestX = BD.x;
-							orginX = i+1;
-							orginY = j+1;
+							orginX = i;
+							orginY = j;
 							biggestY = BD.y;
 							
 						}
@@ -134,13 +132,13 @@ public class Main {
 		System.out.println("Orgin of Bulldozer: "+orginX + " and "+ orginY);
 		System.out.println("Size of Bulldozer: "+biggestX + " and "+ biggestY);
 		
-		System.out.println("Point on matrix: "+orginX + " " + orginY);
-		System.out.println("Point on matrix: "+(orginX+biggestX-1) + " "+ (biggestY+orginY-1));
+//		System.out.println("Point on matrix: "+orginX + " " + orginY);
+//		System.out.println("Point on matrix: "+(orginX+biggestX-2) + " "+ (biggestY+orginY-2));
 		printMatrix(matrix);
 		
 		FileWriter write = new FileWriter("output.txt");
 		write.write(orginX+" "+orginY+"\n");
-		write.write((orginX+biggestX-1) + " "+ (biggestY+orginY-1));
+		write.write((biggestX) + " "+ (biggestY));
 		
 		write.close();
 	}
