@@ -24,27 +24,60 @@ public class Main {
 		int [][] matrix = new int[num+1][num+1];
 		textFileToMatrix(lines, matrix);
 		int biggestDoll = 0;
-		Vector2D biggestcornerV;
+		Vector2D biggestCornerV = null;
+		Vector2D biggestCornerV2 = null;
 		int[][] calculatedMatrix = new int[num+1][num+1]; 
 		//calulatedMatrix( (2,3) + (3,1) - (2,1) ) + point(3,2) = calculated[3,2] = MONEY
-		
-		for(int i = 1 ; i<=num ; i++)
+		int p = 1;
+		int o = 1;
+		for(int h=0;h<=num2;h++)
 		{
-			for(int j = 1 ; j<=num ; j++)
+			
+			for(int i = p ; i<=num ; i++)
 			{
-				calculatedMatrix[i][j] = (calculatedMatrix[i-1][j] + calculatedMatrix[i][j-1] - (calculatedMatrix[i-1][j-1])) + matrix[i][j];
-				if(calculatedMatrix[i][j]>biggestDoll)
+				for(int j = o ; j<=num ; j++)
 				{
-					biggestDoll = calculatedMatrix[i][j];
+					calculatedMatrix[i][j] = (calculatedMatrix[i-1][j] + calculatedMatrix[i][j-1] - (calculatedMatrix[i-1][j-1])) + matrix[i][j];
+					if(calculatedMatrix[i][j]>biggestDoll)
+					{
+						biggestDoll = calculatedMatrix[i][j];
+						biggestCornerV = new Vector2D(p,o);
+						biggestCornerV2 = new Vector2D(i,j);
+					}
 				}
 			}
+			//printMatrix(calculatedMatrix);
+			clearMatrix(calculatedMatrix,num);
+			
+			if(o==num)
+			{
+				p++;
+				o=1;
+			}
+			else
+			{
+				o++;
+			}
+			
 		}
 		
-		printMatrix(calculatedMatrix);
+		//printMatrix(calculatedMatrix);
 		System.out.println("MAX MONEY: "+biggestDoll);
+		System.out.println(biggestCornerV.toString());
+		System.out.println(biggestCornerV2.toString());
 		//printMatrix(matrix);
 		//withOutDP();
 		
+	}
+	public static void clearMatrix(int[][] matrix,int num)
+	{
+		for(int i = 0 ; i<num+1 ; i++)
+		{
+			for(int j = 0 ; j<num+1 ; j++)
+			{
+				matrix[i][j] = 0;
+			}
+		}
 	}
 	public static void withOutDP() throws IOException
 	{
