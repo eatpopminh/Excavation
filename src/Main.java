@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,24 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
+		//withOutDP();
+		withDP();
+	}
+	public static void withDP() throws IOException
+	{
+		File f = new File("input.txt");
+		List<String> lines = Files.readAllLines(Paths.get("input.txt"));
+		int num = Integer.parseInt(lines.get(0));
+		int [][] matrix = new int[num][num];
+		textFileToMatrix(lines, matrix);
+		
+		int[][] calulatedMatrix = new int[num][num]; 
+		
+		// calulatedMatrix( (2,3) + (3,1) - (2,1) ) + point(3,2) = MONEY
+		
+	}
+	public static void withOutDP() throws IOException
+	{
 		File f = new File("input.txt");
 		List<String> lines = Files.readAllLines(Paths.get("input.txt"));
 		int num = Integer.parseInt(lines.get(0));
@@ -27,8 +46,8 @@ public class Main {
 		textFileToMatrix(lines, matrix);
 		
 		//Done without Dynamic Programming.
-		//I think this can be done with Dynamic Programming.
 		Bulldozer BD = new Bulldozer(num,matrix);
+		
 		for(int t = 0;t<num2;t++)
 		{
 			for(int th = 0;th<num2;th++)
@@ -73,7 +92,6 @@ public class Main {
 		write.write((orginX+biggestX-1) + " "+ (biggestY+orginY-1));
 		
 		write.close();
-
 	}
 	public static void printMatrix(int matrix[][])
 	{
