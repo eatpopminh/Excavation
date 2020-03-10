@@ -20,12 +20,30 @@ public class Main {
 		File f = new File("input.txt");
 		List<String> lines = Files.readAllLines(Paths.get("input.txt"));
 		int num = Integer.parseInt(lines.get(0));
-		int [][] matrix = new int[num][num];
+		int num2 = num*num;
+		int [][] matrix = new int[num+1][num+1];
 		textFileToMatrix(lines, matrix);
+		int biggestDoll = 0;
+		Vector2D biggestcornerV;
+		int[][] calculatedMatrix = new int[num+1][num+1]; 
+		//calulatedMatrix( (2,3) + (3,1) - (2,1) ) + point(3,2) = calculated[3,2] = MONEY
 		
-		int[][] calulatedMatrix = new int[num][num]; 
+		for(int i = 1 ; i<=num ; i++)
+		{
+			for(int j = 1 ; j<=num ; j++)
+			{
+				calculatedMatrix[i][j] = (calculatedMatrix[i-1][j] + calculatedMatrix[i][j-1] - (calculatedMatrix[i-1][j-1])) + matrix[i][j];
+				if(calculatedMatrix[i][j]>biggestDoll)
+				{
+					biggestDoll = calculatedMatrix[i][j];
+				}
+			}
+		}
 		
-		// calulatedMatrix( (2,3) + (3,1) - (2,1) ) + point(3,2) = MONEY
+		printMatrix(calculatedMatrix);
+		System.out.println("MAX MONEY: "+biggestDoll);
+		//printMatrix(matrix);
+		//withOutDP();
 		
 	}
 	public static void withOutDP() throws IOException
@@ -41,20 +59,20 @@ public class Main {
 		int orginY = 0;
 		//Set<Vector2D> biggestSet;
 		
-		int[][] matrix = new int[num][num];
+		int[][] matrix = new int[num+1][num+1];
 		
 		textFileToMatrix(lines, matrix);
 		
 		//Done without Dynamic Programming.
-		Bulldozer BD = new Bulldozer(num,matrix);
+		Bulldozer BD = new Bulldozer(num+10,matrix);
 		
-		for(int t = 0;t<num2;t++)
+		for(int t = 0;t<num2+10;t++)
 		{
-			for(int th = 0;th<num2;th++)
+			for(int th = 0;th<num2+10;th++)
 			{
-				for(int i = 0;i<num-1;i++)
+				for(int i = 0;i<num+10;i++)
 				{
-					for(int j = 0;j<num-1;j++)
+					for(int j = 0;j<num+10;j++)
 					{
 						if((i+BD.x)>num || (j+BD.y)>num)
 						{
@@ -108,8 +126,8 @@ public class Main {
 	public static void textFileToMatrix(List<String> myLines, int[][] myMatrix)
 	{
 		String temp = "";
-		int h = 0;
-		int k = 0;
+		int h = 1;
+		int k = 1;
 		for(int j = 1;j<myLines.size();j++)
 		{
 			for(int i = 0;i<myLines.get(j).length();i++)
@@ -125,7 +143,7 @@ public class Main {
 					temp += myLines.get(j).toCharArray()[i];
 				}
 			}
-			k=0;
+			k=1;
 			h++;
 		}
 	}
