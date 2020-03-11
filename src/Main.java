@@ -7,13 +7,14 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.Vector;
 
 public class Main {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		withOutDP();
-		//withDP();
+		//withOutDP();
+		withDP();
 	}
 	public static void withDP() throws IOException
 	{
@@ -28,11 +29,12 @@ public class Main {
 		Vector2D biggestCornerV2 = null;
 		int[][] calculatedMatrix = new int[num+1][num+1]; 
 		
+		
 		//calulatedMatrix( (2,3) + (3,1) - (2,1) ) + point(3,2) = calculated[3,2] = MONEY
 		int p = 1;
 		int o = 1;
-		for(int h=0;h<=num2;h++)
-		{
+//		for(int h=0;h<=num2;h++)
+//		{
 			for(int i = p ; i<=num ; i++)
 			{
 				for(int j = o ; j<=num ; j++)
@@ -45,10 +47,9 @@ public class Main {
 						biggestCornerV2 = new Vector2D(i,j);
 					}
 				}
-			}
-			//printMatrix(calculatedMatrix);
-			clearMatrix(calculatedMatrix,num);
-			
+			//}
+			//clearMatrix(calculatedMatrix,num);
+			calculatedMatrix = new int[num+1][num+1];
 			if(o==num)
 			{
 				p++;
@@ -65,6 +66,12 @@ public class Main {
 		System.out.println(biggestCornerV.toString());
 		System.out.println(biggestCornerV2.toString());
 		
+		FileWriter write = new FileWriter("output.txt");
+		write.write(biggestCornerV.x + " " + biggestCornerV.y + "\n");
+
+		write.write(biggestCornerV2.x + " " + biggestCornerV2.y);
+		
+		write.close();
 		
 	}
 	public static void clearMatrix(int[][] matrix,int num)
