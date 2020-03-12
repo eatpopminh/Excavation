@@ -31,29 +31,30 @@ public class Main {
 		
 		
 		//calulatedMatrix( (2,3) + (3,1) - (2,1) ) + point(3,2) = calculated[3,2] = MONEY
+		
 		int p = 1;
 		int o = 1;
-//		for(int h=0;h<=num2;h++)
-//		{
+		for(int h=0;h<=num2;h++)
+		{
 			for(int i = p ; i<=num ; i++)
 			{
 				for(int j = o ; j<=num ; j++)
 				{
-					calculatedMatrix[i][j] = (calculatedMatrix[i-1][j] + calculatedMatrix[i][j-1] - (calculatedMatrix[i-1][j-1])) + matrix[i][j];
-					if(calculatedMatrix[i][j]>biggestDoll)
+					int temp = (calculatedMatrix[i-1][j] + calculatedMatrix[i][j-1] - (calculatedMatrix[i-1][j-1])) + matrix[i][j];
+					calculatedMatrix[i][j] = temp;
+					if(temp>biggestDoll)
 					{
-						biggestDoll = calculatedMatrix[i][j];
+						biggestDoll = temp;
 						biggestCornerV = new Vector2D(p,o);
 						biggestCornerV2 = new Vector2D(i,j);
 					}
 				}
-			//}
-			//clearMatrix(calculatedMatrix,num);
+			}
 			calculatedMatrix = new int[num+1][num+1];
 			if(o==num)
 			{
 				p++;
-				o=1;
+				o = 1;
 			}
 			else
 			{
