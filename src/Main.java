@@ -50,6 +50,7 @@ public class Main {
 					}
 				}
 			}
+			//clearing matrix
 			calculatedMatrix = new int[num+1][num+1];
 			if(o==num)
 			{
