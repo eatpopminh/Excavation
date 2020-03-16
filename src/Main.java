@@ -13,28 +13,22 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-
-		//withOutDP();
-		withDP();
-	}
-	public static void withDP() throws IOException
-	{
-
 		File f = new File("input.txt");
 		List<String> lines = Files.readAllLines(Paths.get("input.txt"));
 		int num = Integer.parseInt(lines.get(0));
-		int [][] matrix = new int[num+1][num+1];
-		textFileToMatrix(lines, matrix);
+		int [][] matrix = new int[num][num];
+		textFileToMatrix2(lines, matrix);
 		
+//		int [][] matrix = new int[num+1][num+1];
+//		textFileToMatrix(lines, matrix);
 		//withOutDP();
-		//withDP(matrix,num);
+//		withDP(matrix,num);
 		
-		
-		
-		maxSumRectangle(matrix, num);
-		
+
+		System.out.println(maxSumRectangle(matrix, num));
 	}
-	public static void maxSumRectangle(int[][] mat, int num) 
+	
+	public static int maxSumRectangle(int[][] mat, int num) 
 	{ 
         int preSum[][] = new int[num+1][num+1]; 
    
@@ -95,16 +89,12 @@ public class Main {
             System.out.println("from row - " + rStart + " to row - " + rEnd); 
             System.out.println("from col - " + cStart + " to col - " + cEnd); 
         } 
+        return maxSum == -1 ? minSum : maxSum;
     }
 
 	public static void withDP(int[][] matrix, int num) throws IOException
 	{
-//		File f = new File("input.txt");
-//		List<String> lines = Files.readAllLines(Paths.get("input.txt"));
-//		int num = Integer.parseInt(lines.get(0));
 		int num2 = num*num;
-//		int [][] matrix = new int[num+1][num+1];
-//		textFileToMatrix(lines, matrix);
 		int biggestDoll = 0;
 		Vector2D biggestCornerV = null;
 		Vector2D biggestCornerV2 = null;
@@ -265,6 +255,29 @@ public class Main {
 				}
 			}
 			k=1;
+			h++;
+		}
+	}public static void textFileToMatrix2(List<String> myLines, int[][] myMatrix)
+	{
+		String temp = "";
+		int h = 0;
+		int k = 0;
+		for(int j = 1;j<myLines.size();j++)
+		{
+			for(int i = 0;i<myLines.get(j).length();i++)
+			{
+				if(myLines.get(j).toCharArray()[i]==' ')
+				{
+					myMatrix[h][k] = Integer.parseInt(temp.trim());
+					k++;
+					temp = "";	
+				}
+				else
+				{
+					temp += myLines.get(j).toCharArray()[i];
+				}
+			}
+			k=0;
 			h++;
 		}
 	}
