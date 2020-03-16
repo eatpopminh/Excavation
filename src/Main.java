@@ -7,28 +7,112 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.Vector;
 
 public class Main {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
+
 		//withOutDP();
 		withDP();
 	}
 	public static void withDP() throws IOException
 	{
+
 		File f = new File("input.txt");
 		List<String> lines = Files.readAllLines(Paths.get("input.txt"));
 		int num = Integer.parseInt(lines.get(0));
-		int num2 = num*num;
 		int [][] matrix = new int[num+1][num+1];
 		textFileToMatrix(lines, matrix);
+		
+		//withOutDP();
+		//withDP(matrix,num);
+		
+		
+		
+		maxSumRectangle(matrix, num);
+		
+	}
+	public static void maxSumRectangle(int[][] mat, int num) 
+	{ 
+        int preSum[][] = new int[num+1][num+1]; 
+   
+        for(int i = 0; i < num; i++) 
+        { 
+            for(int j = 0; j < num; j++) 
+            { 
+                preSum[i+1][j] = preSum[i][j] + mat[i][j]; 
+            } 
+        } 
+   
+        int maxSum = -1; 
+        int minSum = Integer.MIN_VALUE; 
+        int negRow = 0, negCol = 0; 
+        int rStart = 0, rEnd = 0, cStart = 0, cEnd = 0; 
+        for(int rowStart = 0; rowStart < num; rowStart++) 
+        { 
+            for(int row = rowStart; row < num; row++)
+            { 
+                int sum = 0; 
+                int curColStart = 0; 
+                for(int col = 0; col < num; col++) 
+                { 
+                    sum += preSum[row+1][col] - preSum[rowStart][col]; 
+                    if(sum < 0) 
+                    { 
+                        if(minSum < sum) 
+                        { 
+                            minSum = sum; 
+                            negRow = row; 
+                            negCol = col; 
+                        } 
+                        sum = 0; 
+                        curColStart = col+1; 
+                    } 
+                    else if(maxSum < sum) 
+                    { 
+                        maxSum = sum; 
+                        rStart = rowStart; 
+                        rEnd = row; 
+                        cStart = curColStart; 
+                        cEnd = col; 
+                    } 
+                } 
+            } 
+        } 
+          
+        // Printing final values 
+        if(maxSum == -1) 
+        { 
+            System.out.println("from row - " + negRow + 
+                                    " to row - " + negRow); 
+            System.out.println("from col - " + negCol +  
+                                " to col - " + negCol); 
+        } 
+        else 
+        { 
+            System.out.println("from row - " + rStart + " to row - " + rEnd); 
+            System.out.println("from col - " + cStart + " to col - " + cEnd); 
+        } 
+    }
+
+	public static void withDP(int[][] matrix, int num) throws IOException
+	{
+//		File f = new File("input.txt");
+//		List<String> lines = Files.readAllLines(Paths.get("input.txt"));
+//		int num = Integer.parseInt(lines.get(0));
+		int num2 = num*num;
+//		int [][] matrix = new int[num+1][num+1];
+//		textFileToMatrix(lines, matrix);
 		int biggestDoll = 0;
 		Vector2D biggestCornerV = null;
 		Vector2D biggestCornerV2 = null;
 		int[][] calculatedMatrix = new int[num+1][num+1]; 
 		
+		
 		//calulatedMatrix( (2,3) + (3,1) - (2,1) ) + point(3,2) = calculated[3,2] = MONEY
+		
 		int p = 1;
 		int o = 1;
 		for(int h=0;h<=num2;h++)
@@ -37,22 +121,22 @@ public class Main {
 			{
 				for(int j = o ; j<=num ; j++)
 				{
-					calculatedMatrix[i][j] = (calculatedMatrix[i-1][j] + calculatedMatrix[i][j-1] - (calculatedMatrix[i-1][j-1])) + matrix[i][j];
-					if(calculatedMatrix[i][j]>biggestDoll)
+					int temp = (calculatedMatrix[i-1][j] + calculatedMatrix[i][j-1] - (calculatedMatrix[i-1][j-1])) + matrix[i][j];
+					calculatedMatrix[i][j] = temp;
+					if(temp>biggestDoll)
 					{
-						biggestDoll = calculatedMatrix[i][j];
+						biggestDoll = temp;
 						biggestCornerV = new Vector2D(p,o);
 						biggestCornerV2 = new Vector2D(i,j);
 					}
 				}
 			}
-			//printMatrix(calculatedMatrix);
-			clearMatrix(calculatedMatrix,num);
-			
+			//clearing matrix
+			calculatedMatrix = new int[num+1][num+1];
 			if(o==num)
 			{
 				p++;
-				o=1;
+				o = 1;
 			}
 			else
 			{
@@ -65,6 +149,12 @@ public class Main {
 		System.out.println(biggestCornerV.toString());
 		System.out.println(biggestCornerV2.toString());
 		
+		FileWriter write = new FileWriter("output.txt");
+		write.write(biggestCornerV.x + " " + biggestCornerV.y + "\n");
+
+		write.write(biggestCornerV2.x + " " + biggestCornerV2.y);
+		
+		write.close();
 		
 	}
 	public static void clearMatrix(int[][] matrix,int num)
