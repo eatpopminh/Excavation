@@ -13,17 +13,91 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		//withOutDP();
-		withDP();
-	}
-	public static void withDP() throws IOException
-	{
 		File f = new File("input.txt");
 		List<String> lines = Files.readAllLines(Paths.get("input.txt"));
 		int num = Integer.parseInt(lines.get(0));
-		int num2 = num*num;
 		int [][] matrix = new int[num+1][num+1];
 		textFileToMatrix(lines, matrix);
+		
+		//withOutDP();
+		//withDP(matrix,num);
+		
+		
+		
+		maxSumRectangle(matrix, num);
+		
+	}
+	public static void maxSumRectangle(int[][] mat, int num) 
+	{ 
+        int preSum[][] = new int[num+1][num+1]; 
+   
+        for(int i = 0; i < num; i++) 
+        { 
+            for(int j = 0; j < num; j++) 
+            { 
+                preSum[i+1][j] = preSum[i][j] + mat[i][j]; 
+            } 
+        } 
+   
+        int maxSum = -1; 
+        int minSum = Integer.MIN_VALUE; 
+        int negRow = 0, negCol = 0; 
+        int rStart = 0, rEnd = 0, cStart = 0, cEnd = 0; 
+        for(int rowStart = 0; rowStart < num; rowStart++) 
+        { 
+            for(int row = rowStart; row < num; row++)
+            { 
+                int sum = 0; 
+                int curColStart = 0; 
+                for(int col = 0; col < num; col++) 
+                { 
+                    sum += preSum[row+1][col] - preSum[rowStart][col]; 
+                    if(sum < 0) 
+                    { 
+                        if(minSum < sum) 
+                        { 
+                            minSum = sum; 
+                            negRow = row; 
+                            negCol = col; 
+                        } 
+                        sum = 0; 
+                        curColStart = col+1; 
+                    } 
+                    else if(maxSum < sum) 
+                    { 
+                        maxSum = sum; 
+                        rStart = rowStart; 
+                        rEnd = row; 
+                        cStart = curColStart; 
+                        cEnd = col; 
+                    } 
+                } 
+            } 
+        } 
+          
+        // Printing final values 
+        if(maxSum == -1) 
+        { 
+            System.out.println("from row - " + negRow + 
+                                    " to row - " + negRow); 
+            System.out.println("from col - " + negCol +  
+                                " to col - " + negCol); 
+        } 
+        else 
+        { 
+            System.out.println("from row - " + rStart + " to row - " + rEnd); 
+            System.out.println("from col - " + cStart + " to col - " + cEnd); 
+        } 
+    }
+
+	public static void withDP(int[][] matrix, int num) throws IOException
+	{
+//		File f = new File("input.txt");
+//		List<String> lines = Files.readAllLines(Paths.get("input.txt"));
+//		int num = Integer.parseInt(lines.get(0));
+		int num2 = num*num;
+//		int [][] matrix = new int[num+1][num+1];
+//		textFileToMatrix(lines, matrix);
 		int biggestDoll = 0;
 		Vector2D biggestCornerV = null;
 		Vector2D biggestCornerV2 = null;
