@@ -1,3 +1,5 @@
+
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -6,8 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.Vector;
+
 
 public class Main {
 
@@ -22,73 +23,66 @@ public class Main {
 		//Shitty
 //		int [][] matrix = new int[num+1][num+1];
 //		textFileToMatrix(lines, matrix);
-//		withOutDP();
+//		//withOutDP();
 //		withDP(matrix,num);
 		
 
 		System.out.println(maxSumRectangle(matrix, num));
 	}
 	
-	public static int maxSumRectangle(int[][] mat, int num) 
+	public static int maxSumRectangle(int[][] mat, int num) throws IOException 
 	{ 
-        int preSum[][] = new int[num+1][num+1]; 
+        int temp[][] = new int[num+1][num+1]; 
         for(int i = 0; i < num; i++) 
         { 
             for(int j = 0; j < num; j++) 
             { 
-                preSum[i+1][j] = preSum[i][j] + mat[i][j]; 
+                temp[i+1][j] = temp[i][j] + mat[i][j]; 
             } 
         } 
-        printMatrix(preSum);
+        //printMatrix(temp);
         int maxSum = -1; 
-        int minSum = Integer.MIN_VALUE; 
-        int negRow = 0, negCol = 0; 
-        int rStart = 0, rEnd = 0, cStart = 0, cEnd = 0; 
+        int topX = 0, botX = 0, topY = 0, botY = 0; 
         
+        //Each Row
         for(int i = 0; i < num; i++) 
         { 
+        	//Each Column
             for(int j = i; j < num; j++)
             { 
+            	//Kadane's Algorithm
                 int sum = 0; 
                 int curColStart = 0; 
                 for(int col = 0; col < num; col++) 
                 { 
-                    sum += preSum[j+1][col] - preSum[i][col]; 
+                    sum += temp[j+1][col] - temp[i][col]; 
                     if(sum < 0) 
                     { 
-                        if(minSum < sum) 
-                        { 
-                            minSum = sum; 
-                            negRow = j; 
-                            negCol = col; 
-                        } 
                         sum = 0; 
                         curColStart = col+1; 
                     } 
                     else if(maxSum < sum) 
                     { 
                         maxSum = sum; 
-                        rStart = i; 
-                        rEnd = j; 
-                        cStart = curColStart; 
-                        cEnd = col; 
+                        topX = i; 
+                        botX = j; 
+                        topY = curColStart; 
+                        botY = col; 
                     } 
                 } 
             } 
         } 
+
+        
+          FileWriter write = new FileWriter("output.txt");
+          System.out.println((topX+1) + " " + (topY+1));
+          System.out.println((botX+1) + " " + (botY+1));
           
-        // Printing final values 
-        if(maxSum == -1) 
-        { 
-            System.out.println("from row - " + negRow + " to row - " + negRow); 
-            System.out.println("from col - " + negCol + " to col - " + negCol); 
-        } 
-        else 
-        { 
-            System.out.println("from row - " + rStart + " to row - " + rEnd); 
-            System.out.println("from col - " + cStart + " to col - " + cEnd); 
-        } 
-        return maxSum == -1 ? minSum : maxSum;
+          write.write((topX+1) + " " + (topY+1) + "\n");
+          write.write((botX+1) + " " + (botY+1));
+          write.close();
+//        } 
+        return maxSum;
     }
 
 	public static void withDP(int[][] matrix, int num) throws IOException
