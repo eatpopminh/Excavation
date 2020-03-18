@@ -27,10 +27,10 @@ public class Main {
 //		withDP(matrix,num);
 		
 
-		System.out.println(maxSumRectangle(matrix, num));
+		System.out.println(BD(matrix, num));
 	}
 	
-	public static int maxSumRectangle(int[][] mat, int num) throws IOException 
+	public static int BD(int[][] mat, int num) throws IOException 
 	{ 
         int temp[][] = new int[num+1][num+1]; 
         for(int i = 0; i < num; i++) 
@@ -40,10 +40,10 @@ public class Main {
                 temp[i+1][j] = temp[i][j] + mat[i][j]; 
             } 
         } 
-        //printMatrix(temp);
-        int maxSum = -1; 
-        int topX = 0, botX = 0, topY = 0, botY = 0; 
-        
+        printMatrix(temp);
+        int maxMoney = -1; 
+        int topX = 0, topY = 0; 
+        int botX = 0, botY = 0;
         //Each Row
         for(int i = 0; i < num; i++) 
         { 
@@ -52,21 +52,24 @@ public class Main {
             { 
             	//Kadane's Algorithm
                 int sum = 0; 
-                int curColStart = 0; 
+                int curCol = 0; 
                 for(int col = 0; col < num; col++) 
                 { 
+                	//get all the col.
                     sum += temp[j+1][col] - temp[i][col]; 
                     if(sum < 0) 
                     { 
                         sum = 0; 
-                        curColStart = col+1; 
+                        curCol = col + 1; 
                     } 
-                    else if(maxSum < sum) 
+                    else if(maxMoney < sum) 
                     { 
-                        maxSum = sum; 
+                        maxMoney = sum; 
+                        
                         topX = i; 
+                        topY = curCol;
+                        
                         botX = j; 
-                        topY = curColStart; 
                         botY = col; 
                     } 
                 } 
@@ -81,10 +84,10 @@ public class Main {
           write.write((topX+1) + " " + (topY+1) + "\n");
           write.write((botX+1) + " " + (botY+1));
           write.close();
-//        } 
-        return maxSum;
-    }
 
+        return maxMoney;
+    }
+	
 	public static void withDP(int[][] matrix, int num) throws IOException
 	{
 		int num2 = num*num;
