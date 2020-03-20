@@ -32,28 +32,29 @@ public class Main {
 	
 	public static int BD(int[][] mat, int num) throws IOException 
 	{ 
-        int temp[][] = new int[num+1][num+1]; 
-        for(int i = 0; i < num; i++) 
+        int temp[][] = new int[num+1][num+1];
+        //Add column with the OG matrix.
+        for(int i = 0; i<num; i++) 
         { 
-            for(int j = 0; j < num; j++) 
+            for(int j = 0; j<num; j++) 
             { 
                 temp[i+1][j] = temp[i][j] + mat[i][j]; 
             } 
         } 
-        printMatrix(temp);
+        //printMatrix(temp);
         int maxMoney = -1; 
         int topX = 0, topY = 0; 
         int botX = 0, botY = 0;
         //Each Row
-        for(int i = 0; i < num; i++) 
+        for(int i = 0; i<num; i++) 
         { 
         	//Each Column
-            for(int j = i; j < num; j++)
+            for(int j = i; j<num; j++)
             { 
             	//Kadane's Algorithm
                 int sum = 0; 
                 int curCol = 0; 
-                for(int col = 0; col < num; col++) 
+                for(int col = 0; col<num; col++) 
                 { 
                 	//get all the col.
                     sum += temp[j+1][col] - temp[i][col]; 
@@ -65,10 +66,10 @@ public class Main {
                     else if(maxMoney < sum) 
                     { 
                         maxMoney = sum; 
-                        
+                        //Top
                         topX = i; 
                         topY = curCol;
-                        
+                        //Bottom
                         botX = j; 
                         botY = col; 
                     } 
