@@ -254,7 +254,8 @@ public class Main {
 			k=1;
 			h++;
 		}
-	}public static void textFileToMatrix2(List<String> myLines, int[][] myMatrix)
+	}
+	public static void textFileToMatrix2(List<String> myLines, int[][] myMatrix)
 	{
 		String temp = "";
 		int h = 0;
